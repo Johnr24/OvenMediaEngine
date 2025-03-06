@@ -56,6 +56,7 @@ LOCAL_STATIC_LIBRARIES := \
 	file_provider \
 	managed_queue \
 	ffmpeg_wrapper \
+	acme_client \
 	
 
 # rtsp_provider 
