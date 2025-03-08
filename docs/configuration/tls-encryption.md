@@ -80,7 +80,7 @@ To enable HTTP for HLS and WebRTC signaling servers, you must enable the TLS ele
 
 Assuming the certificate settings are correctly configured, WebRTC streaming can then be played via the wss://url protocol, while LLHLS streaming can be accessed via [https://url](https://url/).
 
-### Let's Encrypt, 
+### Let's Encrypt with Certbot
 If you used certbot to create your certificates, the PEM files it creates can be linked in your Server.xml like this:
 
 ```markup
@@ -95,6 +95,41 @@ If you used certbot to create your certificates, the PEM files it creates can be
 					<ChainCertPath>/opt/ovenmediaengine/bin/cert/live/example.com/chain.pem</ChainCertPath>
 				</TLS>
 			</Host>
+```
+
+### Automatic Certificate Management with ACME (RFC8555)
+OvenMediaEngine supports native ACME integration for automated certificate management compliant with RFC8555. This allows automatic certificate issuance and renewal from Let's Encrypt or other ACME providers without external scripts.
+
+Enable ACME in the Modules section of your Server.xml:
+
+```markup
+<Modules>
+    <!-- Other modules configuration -->
+    <ACME>
+        <Enable>true</Enable>
+        <Directory>/opt/ovenmediaengine/bin/acme</Directory>
+        <Email>your-email@example.com</Email>
+        <AgreeTOS>true</AgreeTOS>
+        <ChallengeType>http-01</ChallengeType>
+        <RenewalDays>30</RenewalDays>
+    </ACME>
+</Modules>
+```
+
+Then configure your host to use ACME:
+
+```markup
+<Host>
+    <Names>
+        <Name>example.com</Name>
+    </Names>
+    <TLS>
+        <UseACME>true</UseACME>
+    </TLS>
+</Host>
+```
+
+Note that HTTP port 80 must be accessible for the ACME challenge to work.
 ```
 
 

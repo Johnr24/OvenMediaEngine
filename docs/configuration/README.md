@@ -433,6 +433,16 @@ Finally, `Server.xml` is configured as follows:
             <Enable>false</Enable>
             <MaxClientPeersPerHostPeer>2</MaxClientPeersPerHostPeer>
         </P2P>
+        
+        <!-- ACME for automated SSL certificates (RFC8555) -->
+        <ACME>
+            <Enable>true</Enable>
+            <Directory>/opt/ovenmediaengine/bin/acme</Directory>
+            <Email>your-email@example.com</Email>
+            <AgreeTOS>true</AgreeTOS>
+            <ChallengeType>http-01</ChallengeType>
+            <RenewalDays>30</RenewalDays>
+        </ACME>
     </Modules>
 
 <!-- Settings for the ports to bind -->
