@@ -1,0 +1,4 @@
+modules = ["cpp-clang14", "bash", "c-clang14", "go-1.21"]
+
+[nix]
+channel = "stable-24_05"
